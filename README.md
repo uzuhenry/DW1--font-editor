@@ -16,7 +16,9 @@ Also, if the tool crashes for any reaso, it'll always leave behind a temp file, 
 
 Thanks to:
 -Romsstar and Syd, true legends for anyone interested in this game.
+
 -CUE for finding all the font data for the different versions of the game, and explaining how the font worked.
+
 -The DMC(Digimon Modding Community) discord: https://discord.gg/cb5AuxU6su
 
 
