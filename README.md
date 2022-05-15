@@ -33,4 +33,4 @@ Also, if the tool crashes for any reason, it'll always leave behind a temp file,
 
 -Add support for USA fonts.
 
--Translate public version to english. SORRY FOR NOW (Yeah, really should've tought of that ^^U)
+
