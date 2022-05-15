@@ -16,10 +16,10 @@
         <ListBox x:Name="listascroll" Margin="886,28,24,51" d:ItemsSource="{d:SampleData ItemCount=50}" SelectionChanged="listascroll_SelectionChanged"/>
         <UniformGrid x:Name="cuadriculagraf" Margin="304,28,233,51" Background="Black" Rows="11" Columns="12"/>
         <UniformGrid x:Name="cuadriculagraf2" Margin="304,28,233,51" Rows="11" Columns="12"/>
-        <Button x:Name="botonLoad" Content="Cargar archivo" HorizontalAlignment="Left" Margin="42,28,0,0" VerticalAlignment="Top" Height="50" Width="185" Click="botonLoad_Click"/>
-        <Button x:Name="botonSaveglyfo" Content="Guardar glyfo" HorizontalAlignment="Left" Height="50" Margin="42,96,0,0" VerticalAlignment="Top" Width="185" Click="botonSaveglyfo_Click"/>
-        <Button x:Name="botonSavefile" Content="Guardar archivo" HorizontalAlignment="Left" Height="50" Margin="42,164,0,0" VerticalAlignment="Top" Width="185" Click="botonSavefile_Click"/>
-        <Label Content="Hecho por Uzuhenry." HorizontalAlignment="Left" Height="49" VerticalAlignment="Top" Width="705" Foreground="White" Margin="886,503,0,0" FontSize="16"/>
+        <Button x:Name="botonLoad" Content="Open File" HorizontalAlignment="Left" Margin="42,28,0,0" VerticalAlignment="Top" Height="50" Width="185" Click="botonLoad_Click"/>
+        <Button x:Name="botonSaveglyfo" Content="Save Glyph" HorizontalAlignment="Left" Height="50" Margin="42,96,0,0" VerticalAlignment="Top" Width="185" Click="botonSaveglyfo_Click"/>
+        <Button x:Name="botonSavefile" Content="Save File" HorizontalAlignment="Left" Height="50" Margin="42,164,0,0" VerticalAlignment="Top" Width="185" Click="botonSavefile_Click"/>
+        <Label Content="Made by Uzuhenry." HorizontalAlignment="Left" Height="49" VerticalAlignment="Top" Width="705" Foreground="White" Margin="886,503,0,0" FontSize="16"/>
 
     </Grid>
 </Window>

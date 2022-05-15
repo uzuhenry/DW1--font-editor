@@ -65,7 +65,7 @@ namespace WpfApp2
                             
                             flex = jenc.GetString(chunk);
                             countercharer++;
-                            listascroll.Items.Add("Car - "+countercharer.ToString()+": " + hex + " - " + flex);
+                            listascroll.Items.Add("Char - "+countercharer.ToString()+" : " + hex + " - " + flex);
                             chunk = br.ReadBytes(2);
                             Array.Reverse(chunk);
                         }
