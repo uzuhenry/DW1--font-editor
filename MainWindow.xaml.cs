@@ -17,17 +17,16 @@ using System.Windows.Shapes;
 
 namespace WpfApp2
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public bool fileIsLoaded = false;
         public string archivoabiegto = "";
         public int lastlitsboxindex = 0;
+        public static string _appTitle = "DW-Font Editor v1.8";
         public MainWindow()
         {
             InitializeComponent();
+            this.Title = _appTitle;
             
         }
         public class MyButton : Button
@@ -42,6 +41,7 @@ namespace WpfApp2
             openFileDialog.Filter = "1bpp font files (*.1bppf)|*.1bppf";
             if (openFileDialog.ShowDialog() == true)
             {
+
                 listascroll.Items.Clear();
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 Encoding jenc = Encoding.GetEncoding(932);
@@ -50,6 +50,7 @@ namespace WpfApp2
                 int countercharer = 0;
                 fileIsLoaded = true;
                 archivoabiegto = openFileDialog.FileName + "-temp";
+                this.Title = _appTitle + " - " + openFileDialog.FileName.Substring(openFileDialog.FileName.LastIndexOf("\\") + 1);
                 File.Copy(openFileDialog.FileName, archivoabiegto,true);   
                 using (FileStream fs = new FileStream(archivoabiegto, FileMode.Open, FileAccess.Read))
                 {
@@ -65,7 +66,7 @@ namespace WpfApp2
                             
                             flex = jenc.GetString(chunk);
                             countercharer++;
-                            listascroll.Items.Add("Char - "+countercharer.ToString()+" : " + hex + " - " + flex);
+                            listascroll.Items.Add("Char - " + flex +" - "+ countercharer.ToString()+" : " + hex);
                             chunk = br.ReadBytes(2);
                             Array.Reverse(chunk);
                         }
@@ -74,6 +75,71 @@ namespace WpfApp2
                 }
             }
         }
+
+        private void botonExtract_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "SLPS_017.97 (*.97)|*.97";
+            if (openFileDialog.ShowDialog() == true)
+            {
+
+                listascroll.Items.Clear();
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                Encoding jenc = Encoding.GetEncoding(932);
+                string hex = "";
+                string flex = "";
+                int countercharer = 0;
+                fileIsLoaded = true;
+                archivoabiegto = openFileDialog.FileName + "-tempextract";
+                this.Title = _appTitle + " - " + openFileDialog.FileName.Substring(openFileDialog.FileName.LastIndexOf("\\") + 1);
+                //copy to temp file
+                using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
+                {
+                    using (BinaryReader br = new BinaryReader(fs, new ASCIIEncoding()))
+                    {
+                        using (FileStream fse = new FileStream(archivoabiegto, FileMode.OpenOrCreate, FileAccess.Write))
+                        {
+                            using (BinaryWriter bre = new BinaryWriter(fse, new ASCIIEncoding()))
+                            {
+                                byte chunk;
+                                br.BaseStream.Position = 0x98578;
+
+                                for (int i =0; i <0x5D00; i++)
+                                {
+                                    chunk = br.ReadByte();
+                                    bre.Write(chunk);
+                                }
+
+                            }
+                        }
+                    }
+                }
+
+
+                using (FileStream fs = new FileStream(archivoabiegto, FileMode.Open, FileAccess.Read))
+                {
+                    using (BinaryReader br = new BinaryReader(fs, new ASCIIEncoding()))
+                    {
+                        byte[] chunk;
+                        chunk = br.ReadBytes(2);
+                        Array.Reverse(chunk);
+
+                        while (chunk.Length > 0 & hex != "0000")
+                        {
+                            hex = BitConverter.ToString(chunk).Replace("-", string.Empty);
+
+                            flex = jenc.GetString(chunk);
+                            countercharer++;
+                            listascroll.Items.Add("Char - " + flex + " - " + countercharer.ToString() + " : " + hex);
+                            chunk = br.ReadBytes(2);
+                            Array.Reverse(chunk);
+                        }
+
+                    }
+                }
+            }
+        }
+
 
         private void listascroll_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -93,7 +159,9 @@ namespace WpfApp2
                 lastlitsboxindex = listascroll.SelectedIndex;
             }
             
-            if (fileIsLoaded & (listascroll.SelectedIndex != -1)){ 
+            if (fileIsLoaded & (listascroll.SelectedIndex != -1)){
+                string aveve = listascroll.Items[listascroll.SelectedIndex].ToString();
+                chartex.Text = aveve.Substring(7, 1);
 
                 using (FileStream fs = new FileStream(archivoabiegto, FileMode.Open, FileAccess.Read))
                 {
@@ -247,6 +315,7 @@ namespace WpfApp2
                         br.Write(punk);
                     }
                 }
+                listascroll.SelectedIndex= lastlitsboxindex;
             }
         }
 
@@ -263,15 +332,74 @@ namespace WpfApp2
                 if (saveFileDialog1.ShowDialog() == true)
                 {
                     string extensorin = saveFileDialog1.FileName;
-                    string extensoron = extensorin.Substring(extensorin.LastIndexOf('.')-1 ,6);
-                    if (extensoron == ".1bppf")
+                    if (extensorin.LastIndexOf('.')>0)
                     {
-                        File.Copy(archivoabiegto, extensorin, true);
+                        string extensoron = extensorin.Substring(extensorin.LastIndexOf('.'), 6);
+                        if (extensoron == ".1bppf")
+                        {
+                            File.Copy(archivoabiegto, extensorin, true);
+                        }
+                        else
+                        {
+                            File.Copy(archivoabiegto, extensorin + ".1bppf", true);
+                        }
                     }
                     else
                     {
                         File.Copy(archivoabiegto, extensorin + ".1bppf", true);
                     }
+                    MessageBox.Show("File saved.", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+            }
+        }
+
+        private void bttn_blackout_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < cuadriculagraf2.Children.Count; i++)
+            {
+                MyButton celdilla = (MyButton)cuadriculagraf2.Children[i];
+                celdilla.encendido = false;
+                celdilla.Background = new SolidColorBrush(Colors.Black);
+
+            }
+        }
+
+
+        private void botonImport_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult dialogResult = MessageBox.Show("This will import the font in the executable file.\n\nPLEASE BACK UP THE FILE BEFORE DOING THIS\n\n\nDo you want to continue?", "Confirmation Needed", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes)
+            {
+
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "SLPS_017.97 (*.97)|*.97";
+                if (openFileDialog.ShowDialog() == true)
+                {
+
+                    //write temp file into executable
+                    using (FileStream fs = new FileStream(archivoabiegto, FileMode.Open, FileAccess.Read))
+                    {
+                        using (BinaryReader br = new BinaryReader(fs, new ASCIIEncoding()))
+                        {
+                            using (FileStream fse = new FileStream(openFileDialog.FileName, FileMode.OpenOrCreate, FileAccess.Write))
+                            {
+                                using (BinaryWriter bre = new BinaryWriter(fse, new ASCIIEncoding()))
+                                {
+                                    byte chunk;
+                                    bre.BaseStream.Position = 0x98578;
+
+                                    for (int i = 0; i < 0x5D00; i++)
+                                    {
+                                        chunk = br.ReadByte();
+                                        bre.Write(chunk);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    MessageBox.Show("Font imported.", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }

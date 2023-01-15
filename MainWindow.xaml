@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="DW1 Custom Font Editor" Height="565" Width="1095" Closing="Window_Closing">
-    <Grid>
+        Title="DW-Font Editor v1.8" Height="565" Width="1095" Closing="Window_Closing">
+    <Grid Margin="0,0,-21,-16">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF2304FF"/>
@@ -17,9 +17,14 @@
         <UniformGrid x:Name="cuadriculagraf" Margin="304,28,233,51" Background="Black" Rows="11" Columns="12"/>
         <UniformGrid x:Name="cuadriculagraf2" Margin="304,28,233,51" Rows="11" Columns="12"/>
         <Button x:Name="botonLoad" Content="Open File" HorizontalAlignment="Left" Margin="42,28,0,0" VerticalAlignment="Top" Height="50" Width="185" Click="botonLoad_Click"/>
-        <Button x:Name="botonSaveglyfo" Content="Save Glyph" HorizontalAlignment="Left" Height="50" Margin="42,96,0,0" VerticalAlignment="Top" Width="185" Click="botonSaveglyfo_Click"/>
-        <Button x:Name="botonSavefile" Content="Save File" HorizontalAlignment="Left" Height="50" Margin="42,164,0,0" VerticalAlignment="Top" Width="185" Click="botonSavefile_Click"/>
-        <Label Content="Made by Uzuhenry." HorizontalAlignment="Left" Height="49" VerticalAlignment="Top" Width="705" Foreground="White" Margin="886,503,0,0" FontSize="16"/>
+        <Button x:Name="botonSaveglyfo" Content="Save Glyph" HorizontalAlignment="Left" Height="50" Margin="89,298,0,0" VerticalAlignment="Top" Width="185" Click="botonSaveglyfo_Click"/>
+        <Button x:Name="botonSavefile" Content="Save File" HorizontalAlignment="Left" Height="50" Margin="42,83,0,0" VerticalAlignment="Top" Width="185" Click="botonSavefile_Click"/>
+        <Label Content="Made by Uzuhenry." HorizontalAlignment="Left" Height="49" VerticalAlignment="Top" Width="705" Foreground="White" Margin="886,519,0,0" FontSize="16"/>
+        <TextBox x:Name="chartex" HorizontalAlignment="Left" Height="61" Margin="199,453,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" FontSize="20"/>
+        <Button x:Name="bttn_blackout" Content="Blackout" HorizontalAlignment="Left" Height="68" Margin="146,367,0,0" VerticalAlignment="Top" Width="128" Click="bttn_blackout_Click"/>
+        <Button x:Name="botonExtract" Content="Extract font" HorizontalAlignment="Left" Height="50" Margin="42,138,0,0" VerticalAlignment="Top" Width="185" Click="botonExtract_Click"/>
+        <Button x:Name="botonImport" Content="Import font" HorizontalAlignment="Left" Height="50" Margin="42,193,0,0" VerticalAlignment="Top" Width="185" Click="botonImport_Click"/>
+        <Rectangle HorizontalAlignment="Left" Height="545" Margin="678,0,0,0" Stroke="Red" VerticalAlignment="Center" Width="2" Fill="Red"/>
 
     </Grid>
 </Window>
